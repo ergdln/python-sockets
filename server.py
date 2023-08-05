@@ -1,6 +1,7 @@
 import socket
 import threading
 import os
+import queue
 
 def receive_file(connection, addr, filename):
     print(f"Recebendo arquivo '{filename}' de {addr[0]}:{addr[1]}")
@@ -31,12 +32,24 @@ def handle_client(client_socket, addr):
 
         print("Recebido de", addr[0], ":", response)
 
-        # Encaminhar a mensagem para todos os clientes conectados
-        for client in clients:
-            if client != client_socket:
-                client.send(response.encode())
+        # Colocar a mensagem na fila
+        message_queue.put(response)
 
-    client_socket.close()
+    with clients_lock:
+        clients.remove(client_socket)
+        client_socket.close()
+
+def process_message_queue():
+    while True:
+        # Pegar a mensagem da fila
+        message = message_queue.get()
+
+        # Encaminhar a mensagem para todos os clientes conectados
+        with clients_lock:
+            for client in clients:
+                client.send(message.encode())
+
+        message_queue.task_done()
 
 def main():
     server_ip = 'localhost'
@@ -49,13 +62,19 @@ def main():
     print(f"Servidor iniciado em {server_ip}:{server_port}")
 
     try:
+        processing_thread = threading.Thread(target=process_message_queue)
+        processing_thread.daemon = True
+        processing_thread.start()
+
         while True:
             client_socket, addr = server_socket.accept()
             print("Cliente conectado:", addr[0], ":", addr[1])
 
+            with clients_lock:
+                clients.append(client_socket)
+
             client_handler = threading.Thread(target=handle_client, args=(client_socket, addr))
             client_handler.start()
-            clients.append(client_socket)
 
     except KeyboardInterrupt:
         print("\nServidor encerrado.")
@@ -64,4 +83,6 @@ def main():
 
 if __name__ == "__main__":
     clients = []
+    clients_lock = threading.Lock()
+    message_queue = queue.Queue()
     main()
