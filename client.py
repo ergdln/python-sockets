@@ -1,4 +1,5 @@
 import socket
+import os
 
 def send_file(connection, filename):
     connection.send("FILE".encode())
