@@ -1,6 +1,6 @@
 import socket
 import os
-import threading 
+import threading
 
 def send_file(connection, server_addr, filename):
     connection.sendto("FILE".encode('utf-8'), server_addr)
@@ -15,14 +15,12 @@ def send_file(connection, server_addr, filename):
 
     print("Arquivo enviado para o servidor.")
 
-
 def receive_messages(connection):
     while True:
         data, addr = connection.recvfrom(1024)
         if not data:
             break
         print("Mensagem recebida do servidor:", data.decode('utf-8'))
-
 
 def main():
     server_ip = 'localhost'
@@ -48,7 +46,6 @@ def main():
             client_socket.sendto(message.encode('utf-8'), server_addr)
 
     client_socket.close()
-
 
 if __name__ == "__main__":
     main()

@@ -25,8 +25,6 @@ def main():
 
     print(f"Servidor iniciado em {server_ip}:{server_port}")
 
-    clients = [] 
-
     try:
         while True:
             data, addr = server_socket.recvfrom(1024)
@@ -42,7 +40,7 @@ def main():
 
             print("Recebido de", addr[0], ":", response)
   
-            # Enviar resposta para o cliente
+            
             server_socket.sendto(response.encode('utf-8'), addr)
 
     except KeyboardInterrupt:
