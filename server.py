@@ -23,8 +23,8 @@ def receive_file(connection, addr, filename):
     # Encaminhar o arquivo para todos os clientes conectados
     with clients_lock:
         for client in clients:
-            client.send("FILE".encode())
-            client.send(filename.encode())
+            client.send("FILE".encode('utf-8'))
+            client.send(filename.encode('utf-8'))
             client.sendall(file_content)
 
     print(f"Arquivo '{filename}' encaminhado para os outros clientes.")

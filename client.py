@@ -3,8 +3,8 @@ import os
 import threading
 
 def send_file(connection, filename):
-    connection.send("FILE".encode())
-    connection.send(filename.encode())
+    connection.send("FILE".encode('utf-8'))
+    connection.send(filename.encode('utf-8'))
 
     with open(filename, 'rb') as file:
         while True:

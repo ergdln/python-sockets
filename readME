@@ -17,5 +17,7 @@ EXECUTE OS SEGUINTES PASSOS:
 3. Iniciar, em terminais separados, quantos clientes forem necessários;
 4. Observar que o servidor conectou todos os clientes. 
 5. Todas as mensagens tipo string enviadas são entregues para todos os clientes automaticamente. 
-6. Há um arquivo "file.txt" na pasta. Um cliente pode enviar o arquivo passando o path. Como o arquivo excede 1024 bytes o servidor automáticamente vai quebrar o arquivo em pacotes de 1024bytes e vai enviar em pequenos pacotes de string. 
+6. Note que há um arquivo "file.txt" na pasta. Um cliente pode enviar o arquivo passando o path do arquivo como mensagem
+obs: Como o arquivo "file.txt" anexado excede 1024 bytes, o servidor automáticamente vai quebrar o arquivo em pacotes de 1024bytes e vai enviar em pequenos pacotes de string. No caso do exemplo, o arquivo "file.txt" tem 7.246Kb. Desse modo, ele é divido em 8 mensagens diferentes pelo servidor. 
 7. O mesmo ocorre para arquivos de imagem. 
+8. Desse modo, o projeto cumpre bem os requisitos estabelecidos para a primeira entrega. 
