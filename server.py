@@ -15,6 +15,20 @@ def receive_file(connection, addr, filename):
 
     print(f"Arquivo '{filename}' recebido e armazenado.")
 
+    # Ler o conteúdo do arquivo
+    file_content = b""
+    with open(filename, 'rb') as file:
+        file_content = file.read()
+
+    # Encaminhar o arquivo para todos os clientes conectados
+    with clients_lock:
+        for client in clients:
+            client.send("FILE".encode())
+            client.send(filename.encode())
+            client.sendall(file_content)
+
+    print(f"Arquivo '{filename}' encaminhado para os outros clientes.")
+
 def handle_client(client_socket, addr):
     while True:
         data = client_socket.recv(1024)
@@ -25,15 +39,18 @@ def handle_client(client_socket, addr):
 
         if message == "FILE":
             filename = client_socket.recv(1024).decode()
+            client_socket.send("Nome do arquivo recebido pelo servidor.".encode())  # Confirmar o recebimento do nome do arquivo
             receive_file(client_socket, addr, filename)
-            response = "Arquivo recebido com sucesso!"
+            response = "Arquivo recebido e encaminhado com sucesso!"
         else:
             response = "Mensagem recebida: " + message
 
         print("Recebido de", addr[0], ":", response)
 
-        # Colocar a mensagem na fila
-        message_queue.put(response)
+        # Encaminhar a mensagem para todos os clientes conectados
+        with clients_lock:
+            for client in clients:
+                client.send(response.encode())
 
     with clients_lock:
         clients.remove(client_socket)

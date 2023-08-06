@@ -20,7 +20,26 @@ def receive_messages(connection):
         data = connection.recv(1024)
         if not data:
             break
-        print("Mensagem recebida do servidor:", data.decode())
+
+        message = data.decode()
+
+        if message == "FILE":
+            filename = connection.recv(1024).decode()
+            receive_file(connection, filename)
+        else:
+            print("Mensagem recebida do servidor:", message)
+
+def receive_file(connection, filename):
+    print(f"Recebendo arquivo '{filename}' do servidor")
+
+    with open(filename, 'wb') as file:
+        while True:
+            data = connection.recv(1024)
+            if not data:
+                break
+            file.write(data)
+
+    print(f"Arquivo '{filename}' recebido do servidor")
 
 def main():
     server_ip = 'localhost'
@@ -49,4 +68,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-    

@@ -1,0 +1,21 @@
+IF678 - Insfraestrutura de comunicação.
+
+Equipe 6:	
+Nome - Email
+Jônatas Ferreira da Silva - jfs8@cin.ufpe.br
+Isaac Ferreira Silva - ifs5@cin.ufpe.br
+Lucas Vinícius Moura da Silva - lvms@cin.ufpe.br
+Pedro Sávio Silva Flor - pssf@cin.ufpe.br
+Ernesto Gonçalves de Lima Neto - egln@cin.ufpe.br
+Morgana Beatriz Feijo Galamba - mbfg2@cin.ufpe.br
+------------------------------------------------------
+Implementação de Chat em grupo usando UDP. 
+
+EXECUTE OS SEGUINTES PASSOS:
+1. Abrir a do projeto pasta com o VSCode;
+2. Iniciar o servidor em um terminal. 
+3. Iniciar, em terminais separados, quantos clientes forem necessários;
+4. Observar que o servidor conectou todos os clientes. 
+5. Todas as mensagens tipo string enviadas são entregues para todos os clientes automaticamente. 
+6. Há um arquivo "file.txt" na pasta. Um cliente pode enviar o arquivo passando o path. Como o arquivo excede 1024 bytes o servidor automáticamente vai quebrar o arquivo em pacotes de 1024bytes e vai enviar em pequenos pacotes de string. 
+7. O mesmo ocorre para arquivos de imagem. 
