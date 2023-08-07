@@ -1,15 +1,3 @@
-IF678 - Insfraestrutura de comunicação.
-
-Equipe 6:	
-Nome - Email
-Jônatas Ferreira da Silva - jfs8@cin.ufpe.br
-Isaac Ferreira Silva - ifs5@cin.ufpe.br
-Lucas Vinícius Moura da Silva - lvms@cin.ufpe.br
-Pedro Sávio Silva Flor - pssf@cin.ufpe.br
-Ernesto Gonçalves de Lima Neto - egln@cin.ufpe.br
-Morgana Beatriz Feijo Galamba - mbfg2@cin.ufpe.br
-------------------------------------------------------
-Implementação de Chat em grupo usando UDP. 
 
 EXECUTE OS SEGUINTES PASSOS:
 1. Abrir a do projeto pasta com o VSCode;
